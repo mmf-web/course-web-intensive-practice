@@ -1,0 +1,158 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./Font/Inter-Regular.otf') format('opentype');
+}
+
+#page-top {
+  position: relative;
+  color: white;
+  /* background-image: url('./images/1.jpg'); */
+  /* height: 100vh; */
+}
+
+#page-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+#page-top img {
+  width: 100%;
+}
+
+#hello-menu {
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+#menu a:first-child {
+  margin-left: 0px;
+}
+
+#menu a {
+  margin-left: 2vw;
+}
+
+#menu-mobile {
+  display: none;
+  cursor: pointer;
+  font-size: 40px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: unset;
+  width: unset;
+}
+
+#menu {
+  display: flex;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 80px;
+}
+
+h2 {
+  font-size: 48px;
+}
+
+h3 {
+  font-size: 25px;
+  color: #282828;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#intro {
+  padding-left: 10vw;
+  padding-right: 30vw;
+  margin-bottom: 15%;
+}
+
+p {
+  font-size: 18px;
+}
+
+button {
+  width: 335px;
+  height: 59px;
+  font-size: 17px;
+}
+
+.body-flex-element {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.body-flex-element :first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10vw;
+}
+
+.body-flex-element img {
+  width: 30vw;
+  height: 30vh;
+}
+
+body > div:not(#page-top) {
+  padding-left: 10vw;
+  padding-right: 10vw;
+  margin-top: 10vh;
+}
+
+h1,
+h2,
+h3 {
+  margin-right: 0;
+}
+
+@media (max-width: 800px) {
+  #menu {
+    display: none;
+  }
+
+  #menu-mobile {
+    display: block;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  #page-top > img {
+    height: 100vh;
+  }
+}
