@@ -1,12 +1,3 @@
-// node js & json server
-
-// Fetch start page, fetch HTML
-// fetch('http://localhost:3000')
-//   .then((response) => response.text())
-//   .then((body) => {
-//     document.body.innerHTML = body
-//   })
-
 class Api {
   async getAllCats() {
     const r = await fetch('http://localhost:3000/cats')
@@ -18,11 +9,14 @@ class Api {
   // http://localhost:3000/cats?name=toxi%26
   async getAllCatsByBloodType(types) {
     const url = new URL('http://localhost:3000/cats')
+
+    // 3 варианта, как добавить параметр в url
+    // const query = new URLSearchParams({ blood_type: type })
     // url.searchParams.set('blood_type', type)
     types.forEach((type) => {
       url.searchParams.append('blood_type', type)
     })
-    // const query = new URLSearchParams({ blood_type: type })
+
     const r = await fetch(url)
     const body = await r.json()
     return body
@@ -56,8 +50,8 @@ class Api {
 const api = new Api()
 
 async function main() {
+  // await api.createCat({ name: 'blacky' }).then(console.log)
   // await api.updateCat('18ad', { name: 'tesla3' }).then(console.log)
-
   // await api.deleteCat('d68c').then(console.log)
 
   await api.getAllCatsByBloodType([1, 2]).then((cats) => {
@@ -86,8 +80,6 @@ async function main() {
     table += `</tbody></table>`
     document.body.innerHTML = table
   })
-
-  // api.createCat({ name: 'tesla' }).then(console.log)
 }
 
 main()
