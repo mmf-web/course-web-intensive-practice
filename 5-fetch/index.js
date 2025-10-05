@@ -1,3 +1,14 @@
+/*
+Посмотрите, как похожи все методы этого класса. Может быть есть смысл вынести общую часть в отдельный приватный метод, например
+async #fetch(path, options) {
+  const r = await fetch('http://localhost:3000' + path, options)
+  return await r.json()
+}
+
+async getAllCats = () => this.#fetch('/cats')
+async createCat = (cat) => this.#fetch('/cats', { method: 'POST', body: JSON.stringify(cat) })
+*/
+
 class Api {
   async getAllCats() {
     const r = await fetch('http://localhost:3000/cats')
