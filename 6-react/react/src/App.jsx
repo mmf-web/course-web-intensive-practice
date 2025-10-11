@@ -38,8 +38,9 @@ export default function App() {
 
   return (
     <div>
+      <h1>React TODO list</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="todoName" />
+        <input class="border-2 border-gray-300 rounded-md p-2" type="text" name="todoName" />
         <button type="submit">Создать</button>
       </form>
       <div>
