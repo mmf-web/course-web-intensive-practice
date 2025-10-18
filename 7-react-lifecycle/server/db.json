@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": "79d2",
+      "name": "My first todo",
+      "done": false
+    },
+    {
+      "id": "29a4",
+      "name": "My second todo",
+      "done": true
+    }
+  ]
+}
