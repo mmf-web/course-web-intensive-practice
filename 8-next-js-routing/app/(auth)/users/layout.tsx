@@ -1,4 +1,4 @@
-import { users } from '../user-data'
+import { users } from '../../user-data'
 import Link from 'next/link'
 
 export default function Layout({

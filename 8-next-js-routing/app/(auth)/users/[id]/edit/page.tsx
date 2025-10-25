@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { users } from '../../../user-data'
+import { users } from '../../../../user-data'
 
 export default async function XXX({ params }: { params: { id: string } }) {
   const { id } = await params

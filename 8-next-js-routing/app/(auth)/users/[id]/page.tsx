@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { users } from '../../user-data'
+import { users } from '../../../user-data'
 import { notFound } from 'next/navigation'
 
 export default async function UserPage({ params }: { params: { id: string } }) {
