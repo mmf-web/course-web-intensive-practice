@@ -1,22 +1,6 @@
 {
   "operations": [
     {
-      "id": "3",
-      "amount": 2400,
-      "date": "2025-10-08",
-      "category": 3,
-      "description": "Посещение стоматолога",
-      "type": "expence"
-    },
-    {
-      "id": "4",
-      "amount": 448.99,
-      "date": "2025-10-07",
-      "category": 4,
-      "description": "Покупка зимней куртки",
-      "type": "expence"
-    },
-    {
       "id": "5",
       "amount": 1000,
       "date": "2025-10-06",
@@ -113,14 +97,6 @@
       "type": "expence"
     },
     {
-      "id": "18",
-      "amount": 3000,
-      "date": "2025-10-17",
-      "category": 9,
-      "description": "Премия за месяц",
-      "type": "income"
-    },
-    {
       "id": "19",
       "amount": 60,
       "date": "2025-10-18",
@@ -161,14 +137,6 @@
       "type": "expence"
     },
     {
-      "id": "24",
-      "amount": 300,
-      "date": "2025-10-23",
-      "category": 4,
-      "description": "Покупка аксессуаров",
-      "type": "expence"
-    },
-    {
       "id": "25",
       "amount": 90,
       "date": "2025-10-24",
@@ -183,14 +151,6 @@
       "category": 8,
       "description": "Заправка машины",
       "type": "expence"
-    },
-    {
-      "id": "27",
-      "amount": 2500,
-      "date": "2025-10-26",
-      "category": 9,
-      "description": "Доплата за переработку",
-      "type": "income"
     },
     {
       "id": "28",

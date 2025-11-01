@@ -1,84 +1,9 @@
-class Api {
-  // GRUD
-
-  async createOperation(operation) {
-    const r = await fetch("http://localhost:3000/operations", {
-      method: "POST",
-      body: JSON.stringify(operation),
-    });
-    const body = await r.json();
-    return body;
-  }
-
-  async getAllOperations() {
-    const r = await fetch("http://localhost:3000/operations");
-    const body = await r.json();
-    return body;
-  }
-
-  async getAllCategories() {
-    const r = await fetch("http://localhost:3000/categories");
-    const body = await r.json();
-    return body;
-  }
-
-  async getAllOperationsByType() {}
-
-  async deleteOperation(id) {
-    const r = await fetch(`http://localhost:3000/operations/${id}`, {
-      method: "DELETE",
-    });
-    const body = await r.json();
-    return body;
-  }
-
-  async updateOperation(id, updates) {
-    const r = await fetch(`http://localhost:3000/operations/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify(updates),
-    });
-    const body = await r.json();
-    return body;
-  }
-
-  async getOperations(page = 1, limit = 10) {
-    const query = new URLSearchParams();
-    query.set("_page", page);
-    query.set("_per_page", limit);
-
-    // фильтры
-    if (filters.category) query.set("category", filters.category);
-    if (filters.type) query.set("type", filters.type);
-    if (filters.description) query.set("description", filters.description);
-
-    // сортировка
-    if (sortState.field) {
-      const sortParam =
-        sortState.direction === "desc"
-          ? `-${sortState.field}`
-          : sortState.field;
-      query.set("_sort", sortParam);
-    }
-
-    const r = await fetch(
-      `http://localhost:3000/operations?${query.toString()}`
-    );
-    const result = await r.json();
-
-    let data = result.data;
-
-    return {
-      data: data,
-      total: data.length,
-      totalPages: result.pages,
-      currentPage: page,
-    };
-  }
+async function main() {
+  await renderAllOperations();
 }
 
 const api = new Api();
 
-// глобальные переменные
 const filters = {
   category: "",
   type: "",
@@ -94,12 +19,9 @@ const sortState = {
   direction: null, // 'asc' | 'desc' | null
 };
 
-let editMode = false;
-let editOperationId = null;
 let currentPage = 1;
 let pageSize = 10;
 let totalPages = 1;
-let categoriesCache = null;
 
 function resetForm() {
   document.getElementById("amount").value = "";
@@ -107,40 +29,25 @@ function resetForm() {
   document.getElementById("category").value = "";
   document.getElementById("type").value = "";
   document.getElementById("description").value = "";
+  document.getElementById("operation-id").value = "";
 
   editMode = false;
-  editOperationId = null;
 
-  document.getElementById("add-operation-btn").textContent =
-    "+ Добавить операцию";
+  document.getElementById("add-operation-btn").textContent = "+ Добавить операцию";
   cancelBtn.classList.add("hidden");
 }
 
-async function getCategories() {
-  if (!categoriesCache) {
-    const r = await fetch("http://localhost:3000/categories");
-    categoriesCache = await r.json();
-  }
-  return categoriesCache;
-}
-
 // рендеринг операции
-operationToHTML = (operation, categories) => {
-  const category = categories.find((c) => c.id == operation.category);
-  const categoryName = category ? category.name : "Неизвестно";
+const operationToHTML = (operation, categories) => {
+  const categoryName = categories.find((c) => c.id == operation.category)?.name ?? "Неизвестно";
   const typeName = operation.type == "expence" ? "Расход" : "Доход";
-  const formattedAmount =
-    (operation.type == "expence" ? "-" : "+") +
-    Math.abs(operation.amount).toFixed(2) +
-    " BYN";
+  const formattedAmount = (operation.type == "expence" ? "-" : "+") + Math.abs(operation.amount).toFixed(2) + " BYN";
 
   const row = document.createElement("tr");
   row.className = "border-b border-gray-100";
 
   row.innerHTML = `
-    <td class="py-3 px-2 md:px-4">${new Date(operation.date).toLocaleDateString(
-      "ru-RU"
-    )}</td>
+    <td class="py-3 px-2 md:px-4">${new Date(operation.date).toLocaleDateString("ru-RU")}</td>
     <td class="py-3 px-2 md:px-4">${categoryName}</td>
     <td class="py-3 px-2 md:px-4">${operation.description}</td>
     <td class="py-3 px-2 md:px-4">${typeName}</td>
@@ -172,19 +79,21 @@ operationToHTML = (operation, categories) => {
 
   menuBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    document.querySelectorAll(".menu").forEach((m) => {
-      if (m !== menu) m.classList.add("hidden");
-    });
-    menu.classList.toggle("hidden");
+    document.querySelectorAll(".menu").forEach((m) => m.classList.add("hidden"));
+    menu.classList.remove("hidden");
   });
 
-  window.addEventListener("click", () => menu.classList.add("hidden"));
+  // ! WARN: this is never cleaned up !
+  // Maybe when switching pages, clear all previous listeners
+  // window.addEventListener("click", () => {
+  //   menu.classList.add("hidden");
+  //   console.log("window click" + operation.id);
+  // });
 
   row.querySelector(".edit-btn").addEventListener("click", (e) => {
     //e.stopPropagation();
 
-    editMode = true;
-    editOperationId = operation.id;
+    operationIdInput.value = operation.id;
 
     document.getElementById("amount").value = operation.amount;
     document.getElementById("date").value = operation.date;
@@ -192,59 +101,73 @@ operationToHTML = (operation, categories) => {
     document.getElementById("type").value = operation.type;
     document.getElementById("description").value = operation.description;
 
-    document.getElementById("add-operation-btn").textContent =
-      "💾 Сохранить изменения";
+    document.getElementById("add-operation-btn").textContent = "💾 Сохранить изменения";
     cancelBtn.classList.remove("hidden");
 
     menu.classList.add("hidden");
   });
-  row.querySelector(".delete-btn").addEventListener("click", (e) => {
-    api.deleteOperation(operation.id);
-    renderAllOperations();
+  row.querySelector(".delete-btn").addEventListener("click", async (e) => {
+    await api.deleteOperation(operation.id);
+    // renderAllOperations();
+    row.remove();
   });
   return row;
 };
 
-// рендеринг таблицы и пагинации
-renderPagination = () => {
+// let globalListeners = [];
+// window.addEventListener("click", (e) => globalListeners.forEach((fn) => fn(e)));
+
+// function addGlobalListener(fn) {
+//   globalListeners.push(fn);
+// }
+// function removeGlobalListener(fn) {
+//   globalListeners = globalListeners.filter((f) => f !== fn);
+// }
+// function clearGlobalListeners() {
+//   globalListeners = [];
+// }
+
+const renderPagination = () => {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
+    btn.dataset.page = i;
     btn.className =
       "px-1 md:px-3 py-1 rounded-lg border " +
       (i === currentPage
         ? "bg-blue-600 text-white border-blue-600"
         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100");
 
-    btn.addEventListener("click", () => {
-      currentPage = i;
-      renderAllOperations();
+    btn.addEventListener("click", (e) => {
+      renderAllOperations({ page: Number(e.target.dataset.page) });
     });
 
     pagination.appendChild(btn);
   }
 };
 
-renderAllOperations = async () => {
-  const container = document.getElementById("operations-container");
-  container.innerHTML = "";
-
-  const {
-    data: operations,
-    total,
-    totalPages: pages,
-  } = await api.getOperations(currentPage, pageSize);
+const renderAllOperations = async ({ page = 1 } = {}) => {
+  const [{ data: operations, pages }, categories] = await Promise.all([
+    api.getOperations({
+      page: page,
+      limit: pageSize,
+      filters,
+      sort: sortState,
+    }),
+    api.getAllCategories(),
+  ]);
 
   totalPages = pages;
-  const categories = categoriesCache;
+  nextPageBtn.dataset.page = page + 1;
 
+  const container = document.getElementById("operations-container");
+  container.innerHTML = "";
   operations.forEach((operation) => {
     container.appendChild(operationToHTML(operation, categories));
   });
-
   renderPagination();
 };
 
@@ -277,10 +200,9 @@ searchDescriptionInput.addEventListener("keydown", (e) => {
 
 addBtn.addEventListener("click", async () => {
   const operation = {
+    id: operationIdInput.value,
     amount: Number(amountInput.value),
-    date: dateInput.value
-      ? new Date(dateInput.value).toLocaleDateString("sv-SE")
-      : new Date().toLocaleDateString("sv-SE"),
+    date: new Date(dateInput.value || undefined).toLocaleDateString("sv-SE"),
     category: parseInt(categorySelect.value),
     type: typeSelect.value,
     description: descriptionInput.value.trim(),
@@ -291,18 +213,13 @@ addBtn.addEventListener("click", async () => {
     return;
   }
 
-  if (
-    operation.amount <= 0 ||
-    !/^[1-9]\d*(,[1-9]\d)?$/.test(operation.amount)
-  ) {
+  if (operation.amount <= 0 || !/^[1-9]\d*(,[1-9]\d)?$/.test(operation.amount)) {
     alert("Неверная сумма");
     return;
   }
 
-  if (editMode) {
-    await api.updateOperation(editOperationId, operation);
-    editMode = false;
-    editOperationId = null;
+  if (operation.id) {
+    await api.updateOperation(operation.id, operation);
     addBtn.textContent = "+ Добавить операцию";
   } else {
     await api.createOperation(operation);
@@ -314,15 +231,12 @@ addBtn.addEventListener("click", async () => {
 
 pageSizeSelect.addEventListener("change", (e) => {
   pageSize = Number(e.target.value);
-  currentPage = 1;
   renderAllOperations();
 });
 
-document.getElementById("next-page").addEventListener("click", () => {
-  if (currentPage < totalPages) {
-    currentPage++;
-    renderAllOperations();
-  }
+const nextPageBtn = document.getElementById("next-page");
+nextPageBtn.addEventListener("click", (e) => {
+  renderAllOperations({ page: Number(e.target.dataset.page) });
 });
 
 document.getElementById("prev-page").addEventListener("click", () => {
@@ -342,14 +256,6 @@ typeFilterSelect.addEventListener("change", (e) => {
   renderAllOperations();
 });
 
-// main
-async function main() {
-  await getCategories();
-  await renderAllOperations();
-}
-
-main();
-
 const sortDateBtn = document.getElementById("sort-date");
 const sortAmountBtn = document.getElementById("sort-amount");
 
@@ -366,9 +272,7 @@ function updateSortIcon(th, direction) {
 }
 
 sortDateBtn.addEventListener("click", () => handleSort("date", sortDateBtn));
-sortAmountBtn.addEventListener("click", () =>
-  handleSort("amount", sortAmountBtn)
-);
+sortAmountBtn.addEventListener("click", () => handleSort("amount", sortAmountBtn));
 
 function handleSort(field, th) {
   updateSortIcon(sortDateBtn, null);
@@ -386,3 +290,5 @@ function handleSort(field, th) {
   updateSortIcon(th, sortState.direction);
   renderAllOperations();
 }
+
+main();
