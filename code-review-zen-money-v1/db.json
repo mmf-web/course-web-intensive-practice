@@ -1,0 +1,270 @@
+{
+  "operations": [
+    {
+      "id": "3",
+      "amount": 2400,
+      "date": "2025-10-08",
+      "category": 3,
+      "description": "Посещение стоматолога",
+      "type": "expence"
+    },
+    {
+      "id": "4",
+      "amount": 448.99,
+      "date": "2025-10-07",
+      "category": 4,
+      "description": "Покупка зимней куртки",
+      "type": "expence"
+    },
+    {
+      "id": "5",
+      "amount": 1000,
+      "date": "2025-10-06",
+      "category": 5,
+      "description": "Оплата за выполненный проект",
+      "type": "income"
+    },
+    {
+      "id": "6",
+      "amount": 250.39,
+      "date": "2025-10-05",
+      "category": 6,
+      "description": "Оплата электроэнергии",
+      "type": "expence"
+    },
+    {
+      "id": "7",
+      "amount": 44.99,
+      "date": "2025-10-04",
+      "category": 7,
+      "description": "Билеты в кино",
+      "type": "expence"
+    },
+    {
+      "id": "8",
+      "amount": 35.99,
+      "date": "2025-10-03",
+      "category": 8,
+      "description": "Оплата проездного в метро",
+      "type": "expence"
+    },
+    {
+      "id": "9",
+      "amount": 5000,
+      "date": "2025-10-02",
+      "category": 9,
+      "description": "Начисление зарплаты за сентябрь",
+      "type": "income"
+    },
+    {
+      "id": "10",
+      "amount": 1542.57,
+      "date": "2025-10-01",
+      "category": 10,
+      "description": "Покупка продуктов в супермаркете",
+      "type": "expence"
+    },
+    {
+      "id": "11",
+      "amount": 350,
+      "date": "2025-10-10",
+      "category": 4,
+      "description": "Покупка обуви",
+      "type": "expence"
+    },
+    {
+      "id": "13",
+      "amount": 150,
+      "date": "2025-10-12",
+      "category": 7,
+      "description": "Поход в театр",
+      "type": "expence"
+    },
+    {
+      "id": "14",
+      "amount": 2000,
+      "date": "2025-10-13",
+      "category": 5,
+      "description": "Оплата за проект",
+      "type": "income"
+    },
+    {
+      "id": "15",
+      "amount": 75.5,
+      "date": "2025-10-14",
+      "category": 10,
+      "description": "Кафе с друзьями",
+      "type": "expence"
+    },
+    {
+      "id": "16",
+      "amount": 120,
+      "date": "2025-10-15",
+      "category": 8,
+      "description": "Такси",
+      "type": "expence"
+    },
+    {
+      "id": "17",
+      "amount": 450,
+      "date": "2025-10-16",
+      "category": 4,
+      "description": "Новая рубашка",
+      "type": "expence"
+    },
+    {
+      "id": "18",
+      "amount": 3000,
+      "date": "2025-10-17",
+      "category": 9,
+      "description": "Премия за месяц",
+      "type": "income"
+    },
+    {
+      "id": "19",
+      "amount": 60,
+      "date": "2025-10-18",
+      "category": 7,
+      "description": "Боулинг с друзьями",
+      "type": "expence"
+    },
+    {
+      "id": "20",
+      "amount": 900,
+      "date": "2025-10-19",
+      "category": 3,
+      "description": "Аптека и лекарства",
+      "type": "expence"
+    },
+    {
+      "id": "21",
+      "amount": 500,
+      "date": "2025-10-20",
+      "category": 6,
+      "description": "Оплата воды",
+      "type": "expence"
+    },
+    {
+      "id": "22",
+      "amount": 1500,
+      "date": "2025-10-21",
+      "category": 5,
+      "description": "Оплата за проект",
+      "type": "income"
+    },
+    {
+      "id": "23",
+      "amount": 1200,
+      "date": "2025-10-22",
+      "category": 1,
+      "description": "Пополнение инвестиционного счета",
+      "type": "expence"
+    },
+    {
+      "id": "24",
+      "amount": 300,
+      "date": "2025-10-23",
+      "category": 4,
+      "description": "Покупка аксессуаров",
+      "type": "expence"
+    },
+    {
+      "id": "25",
+      "amount": 90,
+      "date": "2025-10-24",
+      "category": 10,
+      "description": "Кофе и сладости",
+      "type": "expence"
+    },
+    {
+      "id": "26",
+      "amount": 200,
+      "date": "2025-10-25",
+      "category": 8,
+      "description": "Заправка машины",
+      "type": "expence"
+    },
+    {
+      "id": "27",
+      "amount": 2500,
+      "date": "2025-10-26",
+      "category": 9,
+      "description": "Доплата за переработку",
+      "type": "income"
+    },
+    {
+      "id": "28",
+      "amount": 350,
+      "date": "2025-10-27",
+      "category": 7,
+      "description": "Концерт",
+      "type": "expence"
+    },
+    {
+      "id": "29",
+      "amount": 175,
+      "date": "2025-10-28",
+      "category": 6,
+      "description": "Оплата интернета",
+      "type": "expence"
+    },
+    {
+      "id": "30",
+      "amount": 1200,
+      "date": "2025-10-29",
+      "category": 5,
+      "description": "Оплата за дизайн проект",
+      "type": "income"
+    },
+    {
+      "id": "d7a8",
+      "amount": 1000,
+      "date": "2025-10-16",
+      "category": 2,
+      "type": "expence",
+      "description": "asdabvfd"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Инвестиции"
+    },
+    {
+      "id": "2",
+      "name": "Подарки"
+    },
+    {
+      "id": "3",
+      "name": "Здоровье"
+    },
+    {
+      "id": "4",
+      "name": "Одежда"
+    },
+    {
+      "id": "5",
+      "name": "Фриланс"
+    },
+    {
+      "id": "6",
+      "name": "Коммунальные услуги"
+    },
+    {
+      "id": "7",
+      "name": "Развлечения"
+    },
+    {
+      "id": "8",
+      "name": "Транспорт"
+    },
+    {
+      "id": "9",
+      "name": "Зарплата"
+    },
+    {
+      "id": "10",
+      "name": "Еда и напитки"
+    }
+  ]
+}
