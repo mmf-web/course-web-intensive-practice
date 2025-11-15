@@ -1,12 +1,13 @@
-const express = require('express')
-const { transactionModule } = require('./src/transactions')
+import express from 'express'
+import { TransactionsController } from './src/transactions.js'
 
 const DB = {
   transactions: [],
 }
 
 const app = express()
-transactionModule(app, DB)
+
+app.use('/transactions', new TransactionsController(DB))
 
 // Example of multiple middlewares
 // app.get(
