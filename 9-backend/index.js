@@ -7,7 +7,7 @@ const DB = {
 
 const app = express()
 
-app.use('/transactions', new TransactionsController(DB))
+app.use('/transactions', new TransactionsController(DB).getRouter())
 
 // Example of multiple middlewares
 // app.get(

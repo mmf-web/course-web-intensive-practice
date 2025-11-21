@@ -3,7 +3,9 @@ import express from 'express'
 export class TransactionsController {
   constructor(db) {
     this.db = db
+  }
 
+  getRouter = () => {
     const router = express.Router()
     router.get('/', this.getAll)
     router.post('/', express.json(), this.createOne)
