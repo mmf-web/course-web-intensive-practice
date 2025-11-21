@@ -18,7 +18,7 @@ export class TransactionsController {
       case 'income':
         res.send(this.db.transactions.filter((t) => t.amount > 0))
         break
-      case 'expence':
+      case 'expense':
         res.send(this.db.transactions.filter((t) => t.amount < 0))
         break
       default:
