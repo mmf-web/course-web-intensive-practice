@@ -3,12 +3,12 @@ name: 10-backend-testing CI
 on:
   push:
     paths:
-      - "10-backend-testing/**"
-      - ".github/workflows/10-backend-testing-ci.yml"
+      - '20251122-backend-testing/**'
+      - '.github/workflows/20251122-backend-testing/**'
   pull_request:
     paths:
-      - "10-backend-testing/**"
-      - ".github/workflows/10-backend-testing-ci.yml"
+      - '20251122-backend-testing/**'
+      - '.github/workflows/20251122-backend-testing/**'
 
 jobs:
   test:
@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: 10-backend-testing
+        working-directory: 20251122-backend-testing
 
     steps:
       - name: Checkout repository
@@ -25,14 +25,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: "10-backend-testing/package-lock.json"
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '20251122-backend-testing/package-lock.json'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run tests
         run: npm test
-
-
