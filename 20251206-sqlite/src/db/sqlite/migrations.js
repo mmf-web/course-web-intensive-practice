@@ -1,0 +1,7 @@
+export const CREATE_TRANSACTIONS_TABLE_0 = `
+CREATE TABLE IF NOT EXISTS transactions (
+  id INTEGER PRIMARY KEY autoincrement,
+  amount REAL NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+`
